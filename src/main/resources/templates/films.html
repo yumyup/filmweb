@@ -43,7 +43,9 @@
 <tbody>
 <tr th:each="film: ${allFilms}">
     <td th:text="${film.id}">1</td>
-    <td><a th:href="${'http://localhost:8080/movie?id='+ film.id}" th:text="${film.opis}">opis filmu</a></td>
+    <td><a th:href="${'http://localhost:8080/film?id='+ film.id}" th:text="${film.film}">opis filmu</a></td>
+
+</tr>
 
 </tr>
 </tbody>
