@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <title>Przykład Tymeleaf</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <style>
+
+        body {
+            background-color: lightgrey;
+        }
+
+        h2, footer {
+            padding: 1em;
+            color: white;
+            background-color: black;
+            clear: left;
+            text-align: center;
+            font-family: Calibri
+        }
+
+        p {
+            font-family: courier;
+            font-size: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+<h2 th:text="${'Aktor: ' + pojedyncczyAktor.name}"></h2>
+<br/><br/>
+<i>
+    <p th:text="${'opis aktora: ' + pojedyncczyAktor.opis}"></p>
+    <br/>
+</i>
+<h4>oceń aktora </h4>
+<br/>
+
+<form action="#" th:action="@{/actors/comment}" method="post" th:object="${comment}"> <!-- okienka do wpisywania nicka,komentarzy i oceny-->
+    nick: <input type="text" th:field="*{nick}"/>
+    comment: <input type="text" th:field="*{text}"/>
+    note: <input type="number" min="0" max="10" th:field="*{rating}"/>
+    <input type="hidden" name="aktorId" th:value="${pojedyncczyAktor.id}"/>
+    <input type="submit" value="Dodaj"/>
+</form>
+<br/>
+<h4 th:text="${'średnia ocena: ' + sredniaKomentarzy}"></h4>
+
+<br/>
+
+<h4>Lista filmów</h4>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Film</th>
+    </tr>
+    </thead>
+    <tr th:each="movie: ${films}">
+        <td th:text="${movie.id}">1</td>
+        <td><a th:href="${'/movie?id='+ movie.id}" th:text="${movie.title}">asd</a></td>
+    </tr>
+</table>
+<br/>
+<br/>
+<h4> Komentarze: </h4>
+
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>komentarz</th>
+        <th>nick</th>
+        <th>ocena</th>
+    </tr>
+    </thead>
+
+    <tr th:each="comment: ${comments}"> <!--tabela z komentarzami-->
+        <td th:text="${comment.id}">1</td>
+        <td th:text="${comment.text}">komentarz</td>
+        <td th:text="${comment.nick}">nick</td>
+        <td th:text="${comment.rating}">nick</td>
+        <td th:text="${srednia}">srednia</td>
+    </tr>
+</table>
+
+</body>
+
+</html>

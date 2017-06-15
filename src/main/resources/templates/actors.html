@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Przykład Tymeleaf</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+
+
+        body {
+            background-color: lightgrey;
+        }
+
+        h2, footer {
+            padding: 1em;
+            color: white;
+            background-color: black;
+            clear: left;
+            text-align: center;
+            font-family: Calibri
+        }
+
+        p {
+
+            font-family: courier;
+            font-size: 100%;
+        }
+
+    </style>
+</head>
+<h2> Aktorzy</h2>
+<h3> dodaj aktora</h3>
+<form action="#" th:action="@{/actors/add}" method="post" th:object="${actor}">
+    <input type="text" th:field="*{name}"/>
+    <input type="submit" value="Dodaj"/>
+</form>
+<body>
+<h3> Lista aktorów</h3>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Imię i nazwisko</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="actor: ${allActors}">
+        <td th:text="${actor.id}">1</td>
+        <td><a th:href="${'http://localhost:8080/actor?id='+ actor.id}" th:text="${actor.name}">Opis aktora</a></td>
+
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>
